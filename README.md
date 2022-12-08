@@ -1,5 +1,7 @@
 # git-search-task
 
+Make sure that you are using a supported version of node.js before you begin. Angular v15 supports node.js versions: 14.20.x, 16.13.x and 18.10.x
+
 Install dependencies:
 
 ```$ npm install```
