@@ -1,0 +1,12 @@
+<ng-container *ngIf="searchService.item; else noData">
+  <ng-container *ngIf="searchService.item.owner">
+    <img [src]="searchService.item.owner.avatar_url" style="width: 50px" />
+  </ng-container>
+
+  <p>{{ searchService.item.name }}</p>
+  <p>{{ searchService.item.description }}</p>
+  <p>{{ searchService.item.url }}</p>
+  <p>{{ searchService.item.url }}</p>
+</ng-container>
+
+<ng-template #noData> no data found </ng-template>

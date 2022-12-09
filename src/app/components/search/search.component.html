@@ -1,0 +1,17 @@
+<app-index></app-index>
+<ng-container
+  *ngIf="searchService.result | async as searchResult; else loading"
+>
+  <h2 *ngIf="searchResult != null">
+    Search found {{ searchResult.total_count }} results
+  </h2>
+  <ng-container *ngFor="let item of searchResult.items; let i = index">
+    <app-result-card [item]="item"></app-result-card>
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div style="padding: 50px">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

@@ -1,0 +1,19 @@
+<mat-accordion>
+  <mat-expansion-panel
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <div class="icon-container">
+          <img [src]="item?.owner?.avatar_url" />
+        </div>
+      </mat-panel-title>
+      <mat-panel-description>
+        {{ item.name }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>{{ item.description }}</p>
+    <p class="link" (click)="viewMore(item)">Click me for more details</p>
+  </mat-expansion-panel>
+</mat-accordion>

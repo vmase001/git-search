@@ -1,0 +1,28 @@
+@import "../../../_variables.scss";
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 8fr 1fr 1fr 1fr;
+  .input-container {
+    width: 100%;
+    position: relative;
+    .rectangle {
+      margin-right: $medium-size;
+      border-radius: $xsmall-size;
+
+      .input {
+        font-size: $medium-size;
+        color: $dark-gray;
+        padding: 14px 14px 14px 19px;
+        box-sizing: border-box;
+        width: 100%;
+        border: 2px solid $light-grey-border;
+        border-radius: $xsmall-size;
+      }
+    }
+  }
+
+  button {
+    align-self: center;
+  }
+}

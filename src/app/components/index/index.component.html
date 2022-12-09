@@ -1,0 +1,29 @@
+<div>
+  <h1>GitHub Search</h1>
+  <form role="search" class="wrapper" [formGroup]="searchForm">
+    <div class="input-container">
+      <div class="rectangle">
+        <mat-label></mat-label>
+        <input
+          matInput
+          placeholder="Search"
+          type="text"
+          name="searchText"
+          formControlName="text"
+          class="input"
+        />
+      </div>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="btn btn-default"
+      (click)="doSearch()"
+      [disabled]="searchForm.invalid"
+    >
+      Submit
+    </button>
+    <router-outlet></router-outlet>
+  </form>
+</div>
