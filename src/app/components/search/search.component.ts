@@ -3,49 +3,39 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Location } from '@angular/common';
 import { SearchService } from '../../services/search.service';
-import { TakeUntilComponent } from 'src/app/shared/takeuntil-component';
+import { SearchResponse } from 'src/app/interfaces/service.interface';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, of, ReplaySubject, Subject } from 'rxjs';
 
+@UntilDestroy()
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent extends TakeUntilComponent {
+export class SearchComponent {
   loading: boolean = true;
+  private resultsSubject: Subject<SearchResponse> =
+    new Subject<SearchResponse>();
+  results$ = this.resultsSubject.asObservable();
+
   constructor(
     private route: ActivatedRoute,
-    public searchService: SearchService,
-    private location: Location
-  ) {
-    super();
-  }
+    public searchService: SearchService
+  ) {}
 
   ngOnInit() {
-    this.route.url.pipe(this.takeUntilDestroyed()).subscribe(() => {
-      this.getSearchResult();
+    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params) => {
+      this.getSearchResult(params.get('query'));
     });
   }
 
-  goBack(): void {
-    this.location.back();
-  }
-
-  private getSearchResult(): void {
-    const query = this.route.snapshot.paramMap.get('query');
-    this.searchService
-      .doGitSearch(query)
-      .pipe(this.takeUntilDestroyed())
-      .subscribe(
-        (response: any) => {
-          // here we load the data to our subject
-          this.searchService.result.next(response);
-          this.loading = false;
-        },
-        (e) => {
-          console.error(e);
-          window.alert(e);
-          this.loading = false;
-        }
-      );
+  // here we get the results based on the url query param
+  private getSearchResult(param: string | null): void {
+    this.results$ = this.searchService.doGitSearch(param).pipe(
+      tap(() => (this.loading = false)),
+      tap((x) => console.log('results = ', x))
+    );
   }
 }

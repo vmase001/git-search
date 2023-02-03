@@ -1,25 +1,28 @@
 import { Component } from '@angular/core';
 import {
-  Form,
-  UntypedFormBuilder,
-  UntypedFormControl,
+  FormControl,
+  FormGroup,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent {
-  searchForm!: UntypedFormGroup;
+  searchForm: FormGroup = new UntypedFormGroup({
+    text: new FormControl('', [
+      Validators.pattern(/^[A-Za-z]+$/),
+      Validators.required,
+    ]),
+  });
 
-  constructor(
-    private router: Router,
-    private formBuilder: UntypedFormBuilder
-  ) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   doSearch(): void {
     const searchText = this.searchForm.get('text')?.value;
@@ -27,9 +30,11 @@ export class IndexComponent {
   }
 
   ngOnInit() {
-    // assuming the user can only input characters and not numbers
-    this.searchForm = this.formBuilder.group({
-      text: ['', Validators.pattern(/^[A-Za-z]+$/)],
+    // Patch the form when the page reloads if there's a search query
+    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params) => {
+      this.searchForm.patchValue({
+        text: params.get('query'),
+      });
     });
   }
 }

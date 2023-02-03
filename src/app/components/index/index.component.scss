@@ -2,27 +2,24 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: 8fr 1fr 1fr 1fr;
-  .input-container {
-    width: 100%;
-    position: relative;
-    .rectangle {
-      margin-right: $medium-size;
-      border-radius: $xsmall-size;
+  grid-template-columns: 10fr 1fr;
+  grid-gap: 1rem;
+}
 
-      .input {
-        font-size: $medium-size;
-        color: $dark-gray;
-        padding: 14px 14px 14px 19px;
-        box-sizing: border-box;
-        width: 100%;
-        border: 2px solid $light-grey-border;
-        border-radius: $xsmall-size;
-      }
-    }
-  }
+.input-container > div {
+  border-radius: $xsmall-size;
+}
 
-  button {
-    align-self: center;
-  }
+.input {
+  font-size: $medium-size;
+  padding: $medium-14 $medium-14 $medium-14 19px;
+  box-sizing: border-box;
+  width: -webkit-fill-available;
+  width: fill-available;
+  border: 2px solid $light-grey-border;
+  border-radius: $xsmall-size;
+}
+
+button {
+  align-self: center;
 }
