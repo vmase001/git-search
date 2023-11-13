@@ -1,13 +1,12 @@
 <app-index></app-index>
-<ng-container *ngIf="results$ | async as x; else loading">
-  <h2>Search found {{ x.total_count }} results</h2>
-  <ng-container *ngFor="let item of x.items; let i = index">
-    <app-result-card [item]="item"></app-result-card>
-  </ng-container>
-</ng-container>
-
-<ng-template #loading>
-  <div style="padding: 50px">
-    <mat-spinner></mat-spinner>
-  </div>
-</ng-template>
+@if(results$ | async; as x){
+<h2>Search found {{ x.total_count }} results</h2>
+@for(item of x.items; track $index){
+<app-result-card [item]="item"></app-result-card>
+}@empty{
+<span>no results</span>
+} } @else {
+<div style="padding: 50px">
+  <mat-spinner></mat-spinner>
+</div>
+}

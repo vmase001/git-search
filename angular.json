@@ -76,10 +76,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "git-search-beginner:build:production"
+              "buildTarget": "git-search-beginner:build:production"
             },
             "development": {
-              "browserTarget": "git-search-beginner:build:development"
+              "buildTarget": "git-search-beginner:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -87,7 +87,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "git-search-beginner:build"
+            "buildTarget": "git-search-beginner:build"
           }
         },
         "test": {
