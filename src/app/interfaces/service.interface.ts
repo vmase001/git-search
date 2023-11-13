@@ -34,3 +34,8 @@ export interface GithubUser {
   type: string;
   site_admin: boolean;
 }
+
+//The git REST Url has CORS disabled so we can call this from our servers
+//API: https://developer.github.com/v3/search/
+export const githubSearchBaseUrl: string =
+  'https://api.github.com/search/repositories';

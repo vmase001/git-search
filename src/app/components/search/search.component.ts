@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Location } from '@angular/common';
 import { SearchService } from '../../services/search.service';
 import { SearchResponse } from 'src/app/interfaces/service.interface';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { switchMap, tap } from 'rxjs/operators';
-import { BehaviorSubject, of, ReplaySubject, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @UntilDestroy()
 @Component({
