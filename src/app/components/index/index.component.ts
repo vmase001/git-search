@@ -5,7 +5,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -31,10 +31,12 @@ export class IndexComponent {
 
   ngOnInit() {
     // Patch the form when the page reloads if there's a search query
-    this.route.paramMap.pipe(untilDestroyed(this)).subscribe((params) => {
-      this.searchForm.patchValue({
-        text: params.get('query'),
+    this.route.paramMap
+      .pipe(untilDestroyed(this))
+      .subscribe((params: ParamMap) => {
+        this.searchForm.patchValue({
+          text: params.get('query'),
+        });
       });
-    });
   }
 }
